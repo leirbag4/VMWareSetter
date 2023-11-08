@@ -34,7 +34,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.machinesPath = new System.Windows.Forms.TextBox();
             this.outp = new System.Windows.Forms.RichTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.col0 = new System.Windows.Forms.ColumnHeader();
+            this.col1 = new System.Windows.Forms.ColumnHeader();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // findButton
@@ -101,12 +106,44 @@
             this.outp.TabIndex = 3;
             this.outp.Text = "";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.listView1);
+            this.groupBox2.ForeColor = System.Drawing.Color.Silver;
+            this.groupBox2.Location = new System.Drawing.Point(12, 117);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(576, 178);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.col0,
+            this.col1});
+            this.listView1.Location = new System.Drawing.Point(16, 26);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(421, 133);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // col0
+            // 
+            this.col0.Text = "Property";
+            // 
+            // col1
+            // 
+            this.col1.Text = "Value";
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(600, 397);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.outp);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -114,6 +151,7 @@
             this.Text = "VMWare Setter";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -126,5 +164,9 @@
         private Label label1;
         private TextBox machinesPath;
         private RichTextBox outp;
+        private GroupBox groupBox2;
+        private ListView listView1;
+        private ColumnHeader col0;
+        private ColumnHeader col1;
     }
 }

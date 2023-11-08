@@ -14,6 +14,8 @@ namespace VMWareSetter
             // ----------------------------
             // fill controls from savedata
             machinesPath.Text = SaveData.VirtualMachinesPath;
+            FillVMList();
+            SelectMachine(0);
             // ----------------------------
 
             base.OnLoad(e);
@@ -32,29 +34,67 @@ namespace VMWareSetter
 
                 SaveData.VirtualMachinesPath= path;
 
-                string [] dirs = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
-                List<string> validVMsPath = new List<string>();
+                string [] dirs = Directory.GetDirectories(path);
+                List<Machine> machines = new List<Machine>();
 
                 foreach (string dir in dirs) 
                 {
-                    if (IsValidVMDir(dir))
-                    {
-                        validVMsPath.Add(dir);
-                    }
+                    string validName = IsValidVMDir(dir);
+
+                    if (validName != "") 
+                        machines.Add(Machine.CreateFromPath(validName, path));
                 }
+
+                SaveData.Machines = machines.ToArray();
+
+                /*foreach (var machine in machines) 
+                {
+                    Println(machine.ToString());
+                }*/
 
             }
 
             SaveData.Save();
+
+            FillVMList();
+            SelectMachine(0);
         }
 
-        private bool IsValidVMDir(string path)
+        private void SelectMachine(int index)
         {
+            if((machinesList.Items.Count > 0) && (index != -1))
+                machinesList.SelectedIndex = index;
+        }
+
+        private void FillVMList()
+        {
+            machinesList.Items.Clear();
+
+            var machines = SaveData.Machines;
+
+            foreach (var machine in machines)
+            {
+
+                machinesList.Items.Add(new MachineItem(machine));
+
+            }
+        }
 
 
+        private string IsValidVMDir(string path)
+        {
             string[] files = Directory.GetFiles(path);
 
-            return true;
+            foreach (string file in files)
+            {
+                string filename =   Path.GetFileNameWithoutExtension(file);
+                string extension =  Path.GetExtension(file);
+                
+                if (extension == ".vmx")
+                    return filename;
+            }
+
+            return "";
         }
 
 
