@@ -12,8 +12,6 @@ namespace VMWareSetter
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new App());
-
-            MessageBox.Show("End o app");
         }
     }
 }
