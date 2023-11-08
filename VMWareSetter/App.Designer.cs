@@ -33,6 +33,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.machinesPath = new System.Windows.Forms.TextBox();
+            this.outp = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,12 +90,24 @@
             this.machinesPath.Size = new System.Drawing.Size(222, 27);
             this.machinesPath.TabIndex = 1;
             // 
+            // outp
+            // 
+            this.outp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.outp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.outp.ForeColor = System.Drawing.Color.Silver;
+            this.outp.Location = new System.Drawing.Point(12, 306);
+            this.outp.Name = "outp";
+            this.outp.Size = new System.Drawing.Size(576, 79);
+            this.outp.TabIndex = 3;
+            this.outp.Text = "";
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(600, 397);
+            this.Controls.Add(this.outp);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "App";
@@ -112,5 +125,6 @@
         private GroupBox groupBox1;
         private Label label1;
         private TextBox machinesPath;
+        private RichTextBox outp;
     }
 }

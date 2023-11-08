@@ -11,6 +11,11 @@ namespace VMWareSetter
         {
             SaveData.Load();
 
+            // ----------------------------
+            // fill controls from savedata
+            machinesPath.Text = SaveData.VirtualMachinesPath;
+            // ----------------------------
+
             base.OnLoad(e);
         }
 
@@ -24,14 +29,43 @@ namespace VMWareSetter
             }
             else
             {
-                
+
+                SaveData.VirtualMachinesPath= path;
+
+                string [] dirs = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
+                List<string> validVMsPath = new List<string>();
+
+                foreach (string dir in dirs) 
+                {
+                    if (IsValidVMDir(dir))
+                    {
+                        validVMsPath.Add(dir);
+                    }
+                }
+
             }
+
+            SaveData.Save();
+        }
+
+        private bool IsValidVMDir(string path)
+        {
+
+
+            string[] files = Directory.GetFiles(path);
+
+            return true;
         }
 
 
         private void Alert(string str)
         {
             MessageBox.Show(str);
+        }
+
+        private void Println(string str)
+        { 
+            outp.Text += str + "\n";
         }
     }
 }

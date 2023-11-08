@@ -12,14 +12,15 @@ namespace VMWareSetter
     {
 
         public string virtualMachinesPath { get; set; } = "";
-        public Machine[] Machines { get; set; } = new Machine[0];
+        public Machine[] machines { get; set; } = new Machine[0];
         
         
         private static SaveData data = new SaveData();
         private static string filename = "data.cfg";
 
-        public static string GetVirtualMachinesPath() { return data.virtualMachinesPath; }
-        public static Machine[] GetMachines() { return data.Machines; }
+        public static string VirtualMachinesPath { get { return data.virtualMachinesPath; } set { data.virtualMachinesPath = value; } }
+        public static Machine[] Machines { get { return data.machines; } set { data.machines = value; } }
+        public static Machine[] GetMachines() { return data.machines; }
 
         public static void Load()
         {
