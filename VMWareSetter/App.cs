@@ -95,6 +95,7 @@ namespace VMWareSetter
                 string data = File.ReadAllText(filename);
                 string[] lines = data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
+
                 Clear();
                 propertiesList.Items.Clear();
 
@@ -282,7 +283,7 @@ namespace VMWareSetter
                     string property =   item.SubItems[0].Text;
                     string value =      '"' + item.SubItems[1].Text + '"';
 
-                    newFileContent += property + " = " + value + "\n";
+                    newFileContent += property + " = " + value + Environment.NewLine;
 
                 }
 
