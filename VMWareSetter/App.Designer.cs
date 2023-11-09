@@ -35,7 +35,9 @@
             this.machinesPath = new System.Windows.Forms.TextBox();
             this.outp = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.propValueInp = new System.Windows.Forms.TextBox();
+            this.propertiesList = new System.Windows.Forms.ListView();
             this.col0 = new System.Windows.Forms.ColumnHeader();
             this.col1 = new System.Windows.Forms.ColumnHeader();
             this.groupBox1.SuspendLayout();
@@ -62,6 +64,7 @@
             this.machinesList.Name = "machinesList";
             this.machinesList.Size = new System.Drawing.Size(193, 28);
             this.machinesList.TabIndex = 0;
+            this.machinesList.SelectedIndexChanged += new System.EventHandler(this.OnMachineIndexChanged);
             // 
             // groupBox1
             // 
@@ -100,7 +103,7 @@
             this.outp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.outp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.outp.ForeColor = System.Drawing.Color.Silver;
-            this.outp.Location = new System.Drawing.Point(12, 306);
+            this.outp.Location = new System.Drawing.Point(12, 495);
             this.outp.Name = "outp";
             this.outp.Size = new System.Drawing.Size(576, 79);
             this.outp.TabIndex = 3;
@@ -108,41 +111,66 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listView1);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.propValueInp);
+            this.groupBox2.Controls.Add(this.propertiesList);
             this.groupBox2.ForeColor = System.Drawing.Color.Silver;
             this.groupBox2.Location = new System.Drawing.Point(12, 117);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(576, 178);
+            this.groupBox2.Size = new System.Drawing.Size(576, 314);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "properties";
             // 
-            // listView1
+            // label2
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.label2.Location = new System.Drawing.Point(16, 284);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "property value";
+            // 
+            // propValueInp
+            // 
+            this.propValueInp.Location = new System.Drawing.Point(16, 253);
+            this.propValueInp.Name = "propValueInp";
+            this.propValueInp.Size = new System.Drawing.Size(222, 27);
+            this.propValueInp.TabIndex = 3;
+            this.propValueInp.TextChanged += new System.EventHandler(this.OnPropValueChanged);
+            // 
+            // propertiesList
+            // 
+            this.propertiesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.col0,
             this.col1});
-            this.listView1.Location = new System.Drawing.Point(16, 26);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(421, 133);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.propertiesList.FullRowSelect = true;
+            this.propertiesList.Location = new System.Drawing.Point(16, 23);
+            this.propertiesList.MultiSelect = false;
+            this.propertiesList.Name = "propertiesList";
+            this.propertiesList.Size = new System.Drawing.Size(542, 218);
+            this.propertiesList.TabIndex = 0;
+            this.propertiesList.UseCompatibleStateImageBehavior = false;
+            this.propertiesList.View = System.Windows.Forms.View.Details;
+            this.propertiesList.SelectedIndexChanged += new System.EventHandler(this.OnPropertySelectedChanged);
             // 
             // col0
             // 
             this.col0.Text = "Property";
+            this.col0.Width = 260;
             // 
             // col1
             // 
             this.col1.Text = "Value";
+            this.col1.Width = 260;
             // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(600, 397);
+            this.ClientSize = new System.Drawing.Size(600, 586);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.outp);
             this.Controls.Add(this.groupBox1);
@@ -152,6 +180,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -165,8 +194,10 @@
         private TextBox machinesPath;
         private RichTextBox outp;
         private GroupBox groupBox2;
-        private ListView listView1;
+        private ListView propertiesList;
         private ColumnHeader col0;
         private ColumnHeader col1;
+        private Label label2;
+        private TextBox propValueInp;
     }
 }
