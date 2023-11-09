@@ -100,10 +100,10 @@ namespace VMWareSetter
 
                 foreach (string line in lines)
                 {
-                    string[] parts = line.Split('=');
+                    string[] parts = line.Split(new[] { '=' }, 2);
 
                     string prop = parts[0].Trim();
-                    string value =  parts[1].Trim();
+                    string value =  parts[1].Trim().Trim('"');
                     InsertPropertyAndValue(prop, value);
                     
                 }
@@ -115,6 +115,30 @@ namespace VMWareSetter
             ListViewItem item = new ListViewItem(property);
             item.SubItems.Add(value);
             propertiesList.Items.Add(item);
+        }
+
+        private void UpdatePropertyAndValue(string property, string value)
+        {
+            foreach (ListViewItem item in propertiesList.Items)
+            {
+                string propertyName = item.SubItems[0].Text;
+
+                if (propertyName == property)
+                {
+                    item.SubItems[1].Text = value;
+                    break;
+                }
+            }
+        }
+
+        private void InsertOrUpdateProperty(string property, string value)
+        {
+            string prop = FindProperty(property);
+
+            if (prop == "")
+                InsertPropertyAndValue(property, value);
+            else
+                UpdatePropertyAndValue(property, value);
         }
 
         private void FillVMList()
@@ -143,6 +167,19 @@ namespace VMWareSetter
                 
                 if (extension == ".vmx")
                     return filename;
+            }
+
+            return "";
+        }
+
+        private string FindProperty(string propertyName)
+        {
+            foreach (ListViewItem item in propertiesList.Items)
+            {
+                string propName = item.SubItems[0].Text;
+
+                if(propName == propertyName)
+                    return item.SubItems[1].Text;
             }
 
             return "";
@@ -204,7 +241,64 @@ namespace VMWareSetter
         {
             ListViewItem selectedItem = propertiesList.SelectedItems[0];
 
+            //propertiesList.SelectedItems[0].Font = new Font(propertiesList.SelectedItems[0].Font, FontStyle.Bold);
+
             selectedItem.SubItems[1].Text = newValue;
         }
+
+        private void OnBackupVMXPressed(object sender, EventArgs e)
+        {
+            if (SelectedMachine != null)
+            {
+                string vmxFilename = SelectedMachine.GetVMXFile();
+
+                if (File.Exists(vmxFilename))
+                {
+                    string backupSuffix = "_backup_";
+                    string backupFilename = Path.Combine(SelectedMachine.Path, backupSuffix + SelectedMachine.Name) + ".vmx";
+
+                    File.Copy(vmxFilename, backupFilename, true);
+
+                    Clear();
+                    Println("VMX file backup saved at: \n" + backupFilename);
+                    return;
+                }
+            }
+
+            Clear();
+            Println("Can't create the backup");
+        }
+
+        private void OnSaveVMXPressed(object sender, EventArgs e)
+        {
+            string vmxFilename = SelectedMachine.GetVMXFile();
+
+            if (File.Exists(vmxFilename))
+            {
+                string newFileContent = "";
+
+                foreach (ListViewItem item in propertiesList.Items)
+                {
+                    string property =   item.SubItems[0].Text;
+                    string value =      '"' + item.SubItems[1].Text + '"';
+
+                    newFileContent += property + " = " + value + "\n";
+
+                }
+
+                Println("[applying new properties]");
+                Println(newFileContent);
+
+                File.WriteAllText(vmxFilename, newFileContent);
+            }
+
+        }
+
+        private void OnFixMitigationsPressed(object sender, EventArgs e)
+        {
+            InsertOrUpdateProperty("ulm.disableMitigations", "TRUE");
+        }
+
+        
     }
 }
