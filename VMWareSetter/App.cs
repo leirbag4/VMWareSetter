@@ -190,9 +190,21 @@ namespace VMWareSetter
 
         private void OnPropValueChanged(object sender, EventArgs e)
         {
-            PropAndValue propAndVal = (PropAndValue)propValueInp.Tag;
+            if (propValueInp.Tag != null)
+            {
+                PropAndValue propAndVal = (PropAndValue)propValueInp.Tag;
 
-            Println("prop: " + propAndVal.Property + " val: " + propAndVal.Value);
+                //Println("prop: " + propAndVal.Property + " val: " + propAndVal.Value);
+
+                SetSelectedPropertyValue(propValueInp.Text);
+            }
+        }
+
+        private void SetSelectedPropertyValue(string newValue)
+        {
+            ListViewItem selectedItem = propertiesList.SelectedItems[0];
+
+            selectedItem.SubItems[1].Text = newValue;
         }
     }
 }
