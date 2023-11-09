@@ -118,7 +118,7 @@ namespace VMWareSetter
             propertiesList.Items.Add(item);
         }
 
-        private void UpdatePropertyAndValue(string property, string value)
+        private bool UpdatePropertyAndValue(string property, string value)
         {
             foreach (ListViewItem item in propertiesList.Items)
             {
@@ -127,9 +127,11 @@ namespace VMWareSetter
                 if (propertyName == property)
                 {
                     item.SubItems[1].Text = value;
-                    break;
+                    return true;
                 }
             }
+
+            return false;
         }
 
         private void InsertOrUpdateProperty(string property, string value)
@@ -137,9 +139,15 @@ namespace VMWareSetter
             string prop = FindProperty(property);
 
             if (prop == "")
+            {
                 InsertPropertyAndValue(property, value);
+                Println("[New Property Inserted]\n prop:" + property + ", value: " + value);
+            }
             else
-                UpdatePropertyAndValue(property, value);
+            {
+                if (UpdatePropertyAndValue(property, value))
+                    Println("[Property Updated]\n prop:" + property + ", value: " + value);
+            }
         }
 
         private void FillVMList()
@@ -149,11 +157,7 @@ namespace VMWareSetter
             var machines = SaveData.Machines;
 
             foreach (var machine in machines)
-            {
-
                 machinesList.Items.Add(new MachineItem(machine));
-
-            }
         }
 
 
