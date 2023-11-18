@@ -11,3 +11,7 @@
     4. Select one VM, then pick one property and you can change it
     4.1 You can press [fix mitigations] button to insert or update that property if you need
     6. Use [save .vmx] button to save changes
+
+# Visual Reference
+
+![application image](Docs/ref_ver_0_8_0.png)
